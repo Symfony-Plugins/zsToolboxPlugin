@@ -1,0 +1,13 @@
+# zsToolboxPlugin
+
+##Widgets
+
+ - ``zsWidgetFormTextareaWmd`` - WMD markdown editor
+
+##Behaviors
+
+ - ``zsUsertraceable`` - allows modules to keep track of who created/updated them *(requires sfDoctrineGuardPlugin)*
+
+##Tools
+
+ - ``zsMarkdownRenderer`` - translates markdown to html with some added features (blockquote class/yaml highlighting)
