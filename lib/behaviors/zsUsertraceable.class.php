@@ -8,13 +8,11 @@ class zsUsertraceable extends Doctrine_Template
     'created' =>  array(
       'name' => 'created_by',
       'type' => 'integer',
-      'length' => 4,
       'disabled' => false,
       'options' => array()),
     'updated' =>  array(
       'name' => 'updated_by',
       'type' => 'integer',
-      'length' => 4,
       'disabled' => false,
       'options' => array())
   );
@@ -31,7 +29,6 @@ class zsUsertraceable extends Doctrine_Template
       $this->hasColumn(
         $this->_options['created']['name'],
         $this->_options['created']['type'],
-        $this->_options['created']['length'],
         $this->_options['created']['options']
       );
     }
@@ -41,7 +38,6 @@ class zsUsertraceable extends Doctrine_Template
       $this->hasColumn(
         $this->_options['updated']['name'],
         $this->_options['updated']['type'],
-        $this->_options['updated']['length'],
         $this->_options['updated']['options']);
     }
 
@@ -50,6 +46,7 @@ class zsUsertraceable extends Doctrine_Template
 
   public function setUp()
   {
+    
     if( ! $this->_options['created']['disabled'])
     {
       $this->hasOne('sfGuardUser as CreatedBy', array(
@@ -57,7 +54,7 @@ class zsUsertraceable extends Doctrine_Template
           'foreign' => 'id')
       );
     }
-
+    
     if( ! $this->_options['updated']['disabled'])
     {
       $this->hasOne('sfGuardUser as UpdatedBy', array(
