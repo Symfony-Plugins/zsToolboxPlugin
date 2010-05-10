@@ -22,12 +22,21 @@ class zsUsertraceableListener extends Doctrine_Record_Listener
    */
   public function preInsert(Doctrine_Event $event)
   {
-    $guard_user = sfContext::getInstance()->getUser()->getGuardUser();
+    /*if(!sfContext::hasInstance())
+      return;*/
+
+    try
+    {
+      $guard_user = sfContext::getInstance()->getUser()->getGuardUser();
+    } catch (Exception $e)
+    {
+      return;
+    }
 
     if ( ! $this->_options['created']['disabled'])
     {
       $createdName = $event->getInvoker()->getTable()
-          ->getFieldName($this->_options['created']['name']);
+              ->getFieldName($this->_options['created']['name']);
 
       $modified = $event->getInvoker()->getModified();
 
@@ -40,7 +49,7 @@ class zsUsertraceableListener extends Doctrine_Record_Listener
     if ( ! $this->_options['updated']['disabled'])
     {
       $updatedName = $event->getInvoker()->getTable()
-          ->getFieldName($this->_options['updated']['name']);
+              ->getFieldName($this->_options['updated']['name']);
 
       $modified = $event->getInvoker()->getModified();
 
@@ -58,12 +67,18 @@ class zsUsertraceableListener extends Doctrine_Record_Listener
    */
   public function preUpdate(Doctrine_Event $event)
   {
-    $guard_user = sfContext::getInstance()->getUser()->getGuardUser();
-    //die(var_dump($guard_user));
+    try
+    {
+      $guard_user = sfContext::getInstance()->getUser()->getGuardUser();
+    } catch (Exception $e)
+    {
+      return;
+    }
+
     if ( ! $this->_options['updated']['disabled'])
     {
       $updatedName = $event->getInvoker()->getTable()
-          ->getFieldName($this->_options['updated']['name']);
+              ->getFieldName($this->_options['updated']['name']);
 
       $modified = $event->getInvoker()->getModified();
 
@@ -82,13 +97,19 @@ class zsUsertraceableListener extends Doctrine_Record_Listener
    */
   public function preDqlUpdate(Doctrine_Event $event)
   {
-    $guard_user = sfContext::getInstance()->getUser()->getGuardUser();
+    try
+    {
+      $guard_user = sfContext::getInstance()->getUser()->getGuardUser();
+    } catch (Exception $e)
+    {
+      return;
+    }
 
     if ( ! $this->_options['updated']['disabled'])
     {
       $params = $event->getParams();
       $updatedName = $event->getInvoker()->getTable()
-          ->getFieldName($this->_options['updated']['name']);
+              ->getFieldName($this->_options['updated']['name']);
 
       $field = $params['alias'] . '.' . $updatedName;
 
